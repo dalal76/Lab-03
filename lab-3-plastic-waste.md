@@ -201,6 +201,9 @@ ggplot(data = plastic_waste,
     geom_point()
 ```
 
+Answer:Asia is among the countries with a large population, but the
+waste of one person is almost incomparable with other countries
+
 # Wrapping up
 
 If you haven’t had time to finish the exercises above, please ask for
@@ -215,12 +218,25 @@ use](https://ggplot2.tidyverse.org/reference/index.html#section-geoms).
 E8. Recreate the following plot, and interpret what you see in context
 of the data.
 
-![](lab-3-plastic-waste_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+``` r
+plastic_waste %>% 
+  mutate(coastal_pop_prop = coastal_pop / total_pop) %>%
+  filter(plastic_waste_per_cap < 3) %>%
+  ggplot(aes(x = coastal_pop_prop, y = plastic_waste_per_cap, color = continent)) + 
+    geom_point() +
+    geom_smooth(color = "black",method="glm") +
+    scale_color_viridis_d() +
+    labs(x = "Coastal population proportion (Coastal / total population)", 
+         y = "Plastic waste per capita ", 
+         color = "Continent",
+         title = "Plastic waste vs. coastal population proportion",
+         subtitle = "by continent") +
+  
+    theme_minimal()
+Answer:gemo_smooth(Aids the eye in seeeing patterns is the presence of overplotting also its help us to do see the curve of the data and analyis it via a different way)
+the coastal cites in asia and north america is hwest populationave the most plastic waste per capita and the lo
 
-Knit, *commit (with an appropriate message), and push your changes to
-GitHub with an appropriate commit message. Make sure to commit and push
-all changed files so that your Git pane is cleared up afterwards and
-review the md document on GitHub to make sure you’re happy with the
-final state of your work.*
+Knit, *commit (with an appropriate message), and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards and review the md document on GitHub to make sure you're happy with the final state of your work.*
 
-Lab material sourced from <https://datasciencebox.org/>
+Lab material sourced from https://datasciencebox.org/
+```
